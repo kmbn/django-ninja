@@ -44,6 +44,7 @@ class SchemaFactory:
         custom_fields: Optional[List[Tuple[str, Any, Any]]] = None,
         base_class: Type[Schema] = Schema,
         output_only: bool = False,
+        description: Optional[str] = None,
     ) -> Type[Schema]:
         name = name or model.__name__
 
@@ -96,6 +97,8 @@ class SchemaFactory:
         # __validators__: dict[str, AnyClassMethod] | None = None,
         # __cls_kwargs__: dict[str, Any] | None = None,
         # **field_definitions: Any,
+        if description:
+            schema.__doc__ = description
         self.schemas[key] = schema
         self.schema_names.add(name)
         return schema
